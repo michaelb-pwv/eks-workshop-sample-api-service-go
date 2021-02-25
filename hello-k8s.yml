@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-k8s
+  name: deployment-hello-k8s
 spec:
   replicas: 3
   strategy:
@@ -21,6 +21,10 @@ spec:
       containers:
         - name: hello-k8s
           image: CONTAINER_IMAGE
+          securityContext:
+            privileged: false
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
           ports:
           - containerPort: 80
 ---
