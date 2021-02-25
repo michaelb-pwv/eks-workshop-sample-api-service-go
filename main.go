@@ -37,7 +37,7 @@ func main() {
 
 		fmt.Println("Hello world - the log message")
 	})
-	http.ListenAndServe(":80", nil)
+	http.ListenAndServe(":8080", nil)
 }
 
 type response struct {

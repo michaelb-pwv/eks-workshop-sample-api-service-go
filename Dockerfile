@@ -14,5 +14,5 @@ COPY --from=builder /go/src/github.com/eks-workshop-sample-api-service-go/main /
 COPY --from=builder /etc/passwd /etc/passwd
 USER app
 
-EXPOSE 80
+EXPOSE 8080
 CMD ["/main"]
