@@ -2,7 +2,7 @@ default:
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest 
 
 install-build-deploy:
-  stage: install 
+  stage: build 
   script:
     - curl -sS -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticatoir
     - curl -sS -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
