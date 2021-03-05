@@ -8,7 +8,7 @@ install-build-deploy:
     - curl -sS -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
     - chmod +x ./kubectl ./aws-iam-authenticator
     - export PATH=$PWD/:$PATH
-    - yum update && yum -y install docker-ce jq python3-pip python3-dev && pip3 install awscli==1.19.8
+    - apt-get update && apt -y install docker-ce jq python3-pip python3-dev && pip3 install awscli==1.19.8
     - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI"'@' hello-k8s.yml
     - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 200321209425.dkr.ecr.us-east-2.amazonaws.com
     - export KUBECONFIG=$HOME/.kube/config
