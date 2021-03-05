@@ -14,6 +14,9 @@ install-build-deploy:
     - aws --version
     - docker --version
   script:
+    - curl -sS -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
+    - chmod +x ./kubectl
+    - export PATH=$PWD/:$PATH
     - TAG="$REPOSITORY_NAME.$REPOSITORY_BRANCH.$(date +%Y-%m-%d.%H.%M.%S)"
     - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:$TAG"'@' hello-k8s.yml
     - docker build --tag $REPOSITORY_URI:$TAG .
