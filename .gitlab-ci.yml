@@ -11,7 +11,7 @@ install-build-deploy:
     - yum update && yum -y install jq python3-pip python3-dev && pip3 install awscli==1.19.8
     - TAG="$REPOSITORY_NAME.$REPOSITORY_BRANCH.$(date +%Y-%m-%d.%H.%M.%S)"
     - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:$TAG"'@' hello-k8s.yml
-    - $(aws ecr get-login-password)
+    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 200321209425.dkr.ecr.us-east-2.amazonaws.com
     - export KUBECONFIG=$HOME/.kube/config
     - docker build --tag $REPOSITORY_URI:$TAG . 
     - docker push $REPOSITORY_URI:$TAG
