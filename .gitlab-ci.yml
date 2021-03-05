@@ -1,6 +1,5 @@
 variables:
   DOCKER_HOST: tcp://docker:2375 
-  DOCKER_REGISTRY: 200321209425.dkr.ecr.us-east-2.amazonaws.com/ecrdockerrepository-ebpjo8yyzobn
   APP_NAME: my-app
 
 install-build-deploy:
@@ -16,9 +15,9 @@ install-build-deploy:
     - docker --version
   script:
     - TAG="$REPOSITORY_NAME.$REPOSITORY_BRANCH.$(date +%Y-%m-%d.%H.%M.%S)"
-    - sed -i 's@CONTAINER_IMAGE@'"$DOCKER_REGISTRY:$TAG"'@' hello-k8s.yml
+    - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:$TAG"'@' hello-k8s.yml
     - docker build --tag $REPOSITORY_URI:$TAG .
-    - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    - aws ecr get-login-password | docker login --username AWS --password-stdin $REPOSITORY_URI
     - docker push $REPOSITORY_URI:$TAG
     - CREDENTIALS=$(aws sts assume-role --role-arn $EKS_KUBECTL_ROLE_ARN --role-session-name codebuild-kubectl --duration-seconds 900)
     - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
